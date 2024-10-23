@@ -1,0 +1,207 @@
+//for krish 
+% Expert system for identifying animals
+
+% Facts: characteristics of animals
+has_mammal_traits(whale).
+has_mammal_traits(tiger).
+has_mammal_traits(bat).
+has_bird_traits(eagle).
+has_bird_traits(penguin).
+has_reptile_traits(crocodile).
+has_reptile_traits(snake).
+has_fish_traits(shark).
+has_fish_traits(salmon).
+
+% Characteristics of specific animals
+has_fur(tiger).
+has_feathers(penguin).
+has_scales(snake).
+has_gills(salmon).
+lays_eggs(snake).
+lays_eggs(penguin).
+
+% Rules: determining animal type
+animal(X) :- has_fur(X), write(X), write(' is a mammal.'), nl.
+animal(X) :- has_feathers(X), write(X), write(' is a bird.'), nl.
+animal(X) :- has_scales(X), write(X), write(' is a reptile.'), nl.
+animal(X) :- has_gills(X), write(X), write(' is a fish.'), nl.
+animal(X) :- lays_eggs(X), write(X), write(' lays eggs.'), nl.
+
+% Starting point
+start :-
+    write('Which animal would you like to identify?'), nl,
+    write('Enter animal name: '),
+    read(Animal),
+    identify(Animal).
+
+identify(Animal) :-
+    animal(Animal);
+    write('No information on this animal.'), nl.
+//for pranav
+% Expert system for recommending fruits
+
+% Facts: characteristics of fruits
+sweet(apple).
+sweet(mango).
+sweet(banana).
+sweet(grapes).
+
+sour(lemon).
+sour(orange).
+sour(kiwi).
+
+color(red, apple).
+color(yellow, banana).
+color(orange, orange).
+color(green, kiwi).
+color(purple, grapes).
+color(yellow, mango).
+color(yellow, lemon).
+
+texture(soft, banana).
+texture(crunchy, apple).
+texture(soft, mango).
+texture(juicy, orange).
+texture(juicy, grapes).
+texture(soft, kiwi).
+texture(juicy, lemon).
+
+% Rules: recommend a fruit based on preferences
+recommend_fruit(Fruit) :-
+    sweet(Fruit),
+    color(yellow, Fruit),
+    write('You may like a '), write(Fruit), nl.
+
+recommend_fruit(Fruit) :-
+    sour(Fruit),
+    texture(juicy, Fruit),
+    write('You may like a '), write(Fruit), nl.
+
+recommend_fruit(Fruit) :-
+    color(red, Fruit),
+    texture(crunchy, Fruit),
+    write('You may like a '), write(Fruit), nl.
+
+% Start the system
+start :-
+    write('What is your preference?'), nl,
+    write('1. Sweet and yellow'), nl,
+    write('2. Sour and juicy'), nl,
+    write('3. Red and crunchy'), nl,
+    write('Enter your choice: '),
+    read(Choice),
+    suggest_fruit(Choice).
+
+suggest_fruit(1) :- recommend_fruit(Fruit), sweet(Fruit), color(yellow, Fruit).
+suggest_fruit(2) :- recommend_fruit(Fruit), sour(Fruit), texture(juicy, Fruit).
+suggest_fruit(3) :- recommend_fruit(Fruit), color(red, Fruit), texture(crunchy, Fruit).
+
+//for soham
+% Expert system for recommending vacation destinations
+
+% Facts: characteristics of destinations
+climate(tropical, hawaii).
+climate(tropical, bali).
+climate(cold, iceland).
+climate(cold, switzerland).
+climate(moderate, france).
+climate(moderate, japan).
+
+activity(beach, hawaii).
+activity(beach, bali).
+activity(skiing, iceland).
+activity(skiing, switzerland).
+activity(sightseeing, france).
+activity(sightseeing, japan).
+
+location(island, hawaii).
+location(island, bali).
+location(mountain, iceland).
+location(mountain, switzerland).
+location(city, france).
+location(city, japan).
+
+% Rules: recommend vacation destination based on preferences
+recommend_vacation(Destination) :-
+    climate(tropical, Destination),
+    activity(beach, Destination),
+    write('You may enjoy a vacation in '), write(Destination), nl.
+
+recommend_vacation(Destination) :-
+    climate(cold, Destination),
+    activity(skiing, Destination),
+    write('You may enjoy a vacation in '), write(Destination), nl.
+
+recommend_vacation(Destination) :-
+    climate(moderate, Destination),
+    activity(sightseeing, Destination),
+    write('You may enjoy a vacation in '), write(Destination), nl.
+
+% Start the system
+start :-
+    write('What kind of vacation are you looking for?'), nl,
+    write('1. Tropical with beaches'), nl,
+    write('2. Cold with skiing'), nl,
+    write('3. Moderate with sightseeing'), nl,
+    write('Enter your choice: '),
+    read(Choice),
+    suggest_vacation(Choice).
+
+suggest_vacation(1) :- recommend_vacation(Destination), climate(tropical, Destination), activity(beach, Destination).
+suggest_vacation(2) :- recommend_vacation(Destination), climate(cold, Destination), activity(skiing, Destination).
+suggest_vacation(3) :- recommend_vacation(Destination), climate(moderate, Destination), activity(sightseeing, Destination).
+
+//for ved
+% Expert system for recommending plants
+
+% Facts: characteristics of plants
+sunlight(lots, cactus).
+sunlight(lots, sunflower).
+sunlight(moderate, fern).
+sunlight(moderate, peace_lily).
+sunlight(little, snake_plant).
+sunlight(little, pothos).
+
+water(low, cactus).
+water(medium, snake_plant).
+water(medium, pothos).
+water(high, fern).
+water(high, sunflower).
+water(medium, peace_lily).
+
+space(small, cactus).
+space(small, snake_plant).
+space(small, pothos).
+space(medium, fern).
+space(medium, peace_lily).
+space(large, sunflower).
+
+% Rules: recommend plant based on preferences
+recommend_plant(Plant) :-
+    sunlight(lots, Plant),
+    water(low, Plant),
+    write('You may like a '), write(Plant), write(' for lots of sunlight and low water.'), nl.
+
+recommend_plant(Plant) :-
+    sunlight(moderate, Plant),
+    water(medium, Plant),
+    write('You may like a '), write(Plant), write(' for moderate sunlight and medium water.'), nl.
+
+recommend_plant(Plant) :-
+    sunlight(little, Plant),
+    water(medium, Plant),
+    write('You may like a '), write(Plant), write(' for little sunlight and medium water.'), nl.
+
+% Start the system
+start :-
+    write('What are your plant preferences?'), nl,
+    write('1. Lots of sunlight, low water needs'), nl,
+    write('2. Moderate sunlight, medium water needs'), nl,
+    write('3. Little sunlight, medium water needs'), nl,
+    write('Enter your choice: '),
+    read(Choice),
+    suggest_plant(Choice).
+
+suggest_plant(1) :- recommend_plant(Plant), sunlight(lots, Plant), water(low, Plant).
+suggest_plant(2) :- recommend_plant(Plant), sunlight(moderate, Plant), water(medium, Plant).
+suggest_plant(3) :- recommend_plant(Plant), sunlight(little, Plant), water(medium, Plant).
