@@ -1,0 +1,38 @@
+% Knowledge base for career advice
+career(engineer) :- skill(logic), skill(problem_solving), interest(technology).
+career(doctor) :- skill(empathy), skill(communication), interest(medicine).
+career(artist) :- skill(creativity), interest(art).
+career(lawyer) :- skill(argumentation), interest(law).
+career(scientist) :- skill(research), interest(science).
+
+% Ask the user for skills and interests
+ask_skill(Skill) :-
+    format('Do you have the following skill: ~w? (yes/no) ', [Skill]),
+    read(Response),
+    (Response == yes -> assertz(skill(Skill)); fail).
+
+ask_interest(Interest) :-
+    format('Are you interested in ~w? (yes/no) ', [Interest]),
+    read(Response),
+    (Response == yes -> assertz(interest(Interest)); fail).
+
+% Career suggestion
+suggest_career :-
+    retractall(skill(_)), retractall(interest(_)), % clear any old knowledge
+    ask_skill(logic),
+    ask_skill(problem_solving),
+    ask_skill(empathy),
+    ask_skill(communication),
+    ask_skill(creativity),
+    ask_skill(argumentation),
+    ask_skill(research),
+    ask_interest(technology),
+    ask_interest(medicine),
+    ask_interest(art),
+    ask_interest(law),
+    ask_interest(science),
+    career(Career),
+    format('You might consider a career as a ~w.', [Career]), !.
+
+suggest_career :-
+    format('Sorry, I cannot suggest a career for you.'), !.

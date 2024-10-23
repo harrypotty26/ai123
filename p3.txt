@@ -1,0 +1,12 @@
+% Facts: direct connections between cities
+direct_train(paris, lyon).
+direct_train(lyon, marseille).
+direct_train(marseille, nice).
+
+% Travel rule: X can travel to Z via Y if there is a direct train from X to Y and Y to Z
+travel(X, Y) :- direct_train(X, Y).
+travel(X, Y) :- direct_train(X, Z), travel(Z, Y).
+
+% Queries:
+% - Can I travel from Paris to Nice? -> `travel(paris, nice).`
+% - Can I travel from Lyon to Nice? -> `travel(lyon, nice).`

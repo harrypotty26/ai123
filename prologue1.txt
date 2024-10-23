@@ -1,0 +1,22 @@
+% Facts
+parent(john, mary).
+parent(mary, susan).
+parent(john, paul).
+parent(susan, charles).
+
+male(john).
+male(paul).
+male(charles).
+
+female(mary).
+female(susan).
+
+% Rules
+father(X, Y) :- parent(X, Y), male(X).
+mother(X, Y) :- parent(X, Y), female(X).
+grandparent(X, Y) :- parent(X, Z), parent(Z, Y).
+sibling(X, Y) :- parent(Z, X), parent(Z, Y), X \= Y.
+
+% Queries:
+% - Who is the father of Susan? -> `father(X, susan).`
+% - Who are the grandparents of Charles? -> `grandparent(X, charles).`

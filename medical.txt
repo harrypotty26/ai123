@@ -1,0 +1,25 @@
+% Knowledge base (facts and rules)
+illness(flu) :- symptom(fever), symptom(cough), symptom(sore_throat).
+illness(cold) :- symptom(cough), symptom(sneezing), symptom(runny_nose).
+illness(allergy) :- symptom(sneezing), symptom(runny_nose), symptom(itchy_eyes).
+
+% Ask user for symptoms
+ask_symptom(Symptom) :-
+    format('Do you have ~w? (yes/no) ', [Symptom]),
+    read(Response),
+    (Response == yes -> assertz(symptom(Symptom)); fail).
+
+% Diagnosis
+diagnose :-
+    retractall(symptom(_)), % clear any old symptoms
+    ask_symptom(fever),
+    ask_symptom(cough),
+    ask_symptom(sore_throat),
+    ask_symptom(sneezing),
+    ask_symptom(runny_nose),
+    ask_symptom(itchy_eyes),
+    illness(Disease),
+    format('You might have ~w.', [Disease]), !.
+
+diagnose :-
+    format('Sorry, I cannot determine your illness.'), !.
